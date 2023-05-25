@@ -23,6 +23,7 @@ public class OrderPage {
     private final By oneDaySelectDropDown = By.xpath(".//div[@class='Dropdown-option' and text()='сутки']");
 
     public OrderPage clickOrderNextButton(){
+        webDriver.findElement(By.xpath(".//div/button[@class='App_CookieButton__3cvqF']")).click();
         webDriver.findElement(nextOrderButton).click();
         return this;
     }
@@ -43,6 +44,8 @@ public class OrderPage {
         return this;
     }
     public OrderPage clickRentOrderButton(){
+        new WebDriverWait(webDriver, 5)
+                .until(ExpectedConditions.elementToBeClickable(rentOrderButton));
         webDriver.findElement(rentOrderButton).click();
         return this;
             }
@@ -51,5 +54,8 @@ public class OrderPage {
                 .until(ExpectedConditions.presenceOfElementLocated(yesOrderButton));
         webDriver.findElement(yesOrderButton).click();
         return this;
+    }
+    public boolean isSuccessfulOrderModalHeaderDisplayed() {
+        return webDriver.findElement(By.xpath(".//div[@class='Order_ModalHeader__3FDaJ'][text()='Заказ оформлен']")).isDisplayed();
     }
 }

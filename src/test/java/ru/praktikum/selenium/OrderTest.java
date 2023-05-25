@@ -5,10 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.praktikum.selenium.pageobject.MainPage;
 import ru.praktikum.selenium.pageobject.OrderPage;
 import static org.junit.Assert.*;
@@ -48,14 +46,13 @@ public class OrderTest {
 
     @Test
     public void checkSuccessfulOrder() {
-        new OrderPage(webDriver)
-                .setInputOrderValue(family,name,address,phone)
-                .clickOrderNextButton()
-                .setInputRentalValue(rentDate)
-                .clickRentOrderButton()
-                .clickYesOrderButton();
-        var isDisplayed  = webDriver.findElement(By.xpath(".//div[@class='Order_ModalHeader__3FDaJ'][text()='Заказ оформлен']")).isDisplayed();
-        assertTrue("Заказ оформлен отображается", isDisplayed);
+        OrderPage orderPage = new OrderPage(webDriver);
+            orderPage.setInputOrderValue(family,name,address,phone);
+            orderPage.clickOrderNextButton();
+            orderPage.setInputRentalValue(rentDate);
+            orderPage.clickRentOrderButton();
+            orderPage.clickYesOrderButton();
+        assertTrue("Заказ оформлен отображается", orderPage.isSuccessfulOrderModalHeaderDisplayed());
     }
 
     @After

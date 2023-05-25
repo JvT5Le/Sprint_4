@@ -1,6 +1,5 @@
 package ru.praktikum.selenium;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.By;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
@@ -8,7 +7,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.praktikum.selenium.pageobject.MainPage;
 import static org.junit.Assert.assertEquals;
 
@@ -44,9 +42,9 @@ public class BaseTest {
 
     @Test
     public void dropDownList (){
-        new MainPage(webDriver)
-                 .clickOnDropDownElement(locatorText);
-        String actualText = webDriver.findElement(By.xpath(".//*[text()='"+locatorText+"']/..//following-sibling::div")).getText();
+        MainPage mainPage = new MainPage(webDriver);
+        mainPage.clickOnDropDownElement(locatorText);
+        String actualText = mainPage.getTextElement(locatorText);
         assertEquals("текст не совпадает",expectedText,actualText);
     }
 
